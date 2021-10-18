@@ -5,10 +5,10 @@ function parseCount(value) {
         throw invalidError;
     } else return parc
 };
-function validateCount (value) {
+function validateCount(value) {
     try {
-        parseCount(value);
-    } catch (e) {
+        return parseCount(value);
+    } catch(e) {
         return new Error("Невалидное значение");
     };
 };
@@ -34,8 +34,8 @@ class Triangle {
 };
 function getTriangle(a,b,c) {
     try {
-        return new Triangle(a,b,c);
+        return new Triangle(a,b,c);     
     } catch (e) {
-        return new Error("Невалидное значение");
-};
+        return {getPerimeter: (() => new Error("Невалидное значение")), getArea: (() => new Error("Невалидное значение"))}       
+    };
 };
