@@ -24,35 +24,39 @@ class PrintEditionItem {
     };
 };
 class Magazine extends PrintEditionItem {
-    constructor(name,releaseDate,pagesCount,state) {
-        super(name,releaseDate,pagesCount,state);       
+    constructor(name,releaseDate,pagesCount) {
+        super(name,releaseDate,pagesCount);       
         this.type = 'magazine'; 
+        this.state = 100;
     };
 };
 class Book extends PrintEditionItem {
-    constructor(author,name,releaseDate,pagesCount,state) {
-        super(name,releaseDate,pagesCount,state); 
+    constructor(author,name,releaseDate,pagesCount) {
+        super(name,releaseDate,pagesCount); 
         this.type = 'book'; 
         this.author = author;
+        this.state = 100;
     };
 };
 class NovelBook extends Book {
-    constructor(author,name,releaseDate,pagesCount,state) {
-        super(author,name,releaseDate,pagesCount,state); 
+    constructor(author,name,releaseDate,pagesCount) {
+        super(author,name,releaseDate,pagesCount); 
         this.type = 'novel'; 
-        
+        this.state = 100;
     };
 };
 class FantasticBook extends Book {
-    constructor(author,name,releaseDate,pagesCount,state) {
-        super(author,name,releaseDate,pagesCount,state); 
-        this.type = 'fantastic';         
+    constructor(author,name,releaseDate,pagesCount) {
+        super(author,name,releaseDate,pagesCount); 
+        this.type = 'fantastic';
+        this.state = 100;         
     };
 };
 class DetectiveBook extends Book {
-    constructor(author,name,releaseDate,pagesCount,state) {
-        super(author,name,releaseDate,pagesCount,state); 
-        this.type = 'detective';         
+    constructor(author,name,releaseDate,pagesCount) {
+        super(author,name,releaseDate,pagesCount); 
+        this.type = 'detective';     
+        this.state = 100;    
     };
 };
 class Library {
@@ -61,23 +65,24 @@ class Library {
         this.books = [];
     };
     addBook(book) {
-        if(book._state > 30) {
+        if(book.state > 30) {
             this.books.push(book);
         };
     };
     findBookBy(type, value) {
-       let result = this.books.filter((item) => item[type] == value);
-       if(result.length == 0) {
+       let result = this.books.find((item) => item[type] == value);
+       if(!result) {
            return null;
        };
-       return result.pop();
+       return result;
          
     }; 
     giveBookByName(bookName) {
         let takeBookIndex = this.books.find(item => item.name === bookName);
-        if(this.books.indexOf(takeBookIndex) !== -1) {
-            this.books.splice(takeBookIndex,1) 
-            return takeBookIndex        
+        if(takeBookIndex) {
+            let bookId = this.books.indexOf(takeBookIndex);
+            this.books.splice(bookId,1);
+            return takeBookIndex;
         } else {
             return null;
         };
@@ -89,14 +94,12 @@ class Student {
         this.name = name;  
         this.gender = gender;  
         this.age = age;  
+        this.marks = {}
 };
     
     addMark(mark, subject) {
-        if(mark > 5) {
+        if(1 > mark > 5) {
             console.log("Ошибка, оценка должна быть числом от 1 до 5")
-        } else if(this.marks === undefined) {
-            this.marks = {}
-            this.marks[subject] = [mark]
         } else if(this.marks[subject] === undefined) {
             this.marks[subject] = [mark]
         } else this.marks[subject].push(mark)
@@ -111,13 +114,13 @@ class Student {
           sum += this.marks[subject][i];
         };
         let avg = sum / this.marks[subject].length;
-        return console.log("Средний балл по предмету " + subject + " "+ avg);
+        return `Средний балл по предмету ${subject} ${avg}`;
         };
     };
     getAverage() {
         let arrOfmarks = Object.values(this.marks)
         let arrOfAvg = arrOfmarks.map(item => ((item.reduce((acc, cur) => acc + cur))/item.length))
-        return console.log("Средний балл по всем предметам " + (arrOfAvg.reduce((acc, cur) => acc + cur))/arrOfAvg.length)
+        return `Средний балл по всем предметам ${(arrOfAvg.reduce((acc, cur) => acc + cur))/arrOfAvg.length}`;
     };
     exclude(reason) {
         delete this.marks;
