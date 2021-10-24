@@ -17,11 +17,13 @@ class AlarmClock {
         this.alarmCollection.push({timeToGetUp, action, callId});
     };
     removeClock(callId) {
+        let lengthBefore = this.alarmCollection.length
         this.alarmCollection = this.alarmCollection.filter(n => n.callId !== callId);
-        this.alarmCollection.forEach(el => {if(el.callId === callId) {
-            return false
-        }});
-        return true    
+        let lengthAfter = this.alarmCollection.length
+        if(lengthBefore > lengthAfter) {
+            return true
+        };
+        return false
     };
     getCurrentFormattedTime() {
         let currentDate = new Date();
@@ -30,9 +32,9 @@ class AlarmClock {
         return `${hours}:${minutes}`
     };
     start() {
-        let checkClock = function(obj) {
-            if(this.getCurrentFormattedTime() === this.time) {
-                this.action();
+        let checkClock = (obj) => {
+            if(getCurrentFormattedTime() === obj.timeToGetUp) {
+                obj.action();
             };
         };
         if(this.timerId === null) {
