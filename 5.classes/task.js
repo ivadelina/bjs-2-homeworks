@@ -27,7 +27,6 @@ class Magazine extends PrintEditionItem {
     constructor(name,releaseDate,pagesCount) {
         super(name,releaseDate,pagesCount);       
         this.type = 'magazine'; 
-        this.state = 100;
     };
 };
 class Book extends PrintEditionItem {
@@ -35,28 +34,24 @@ class Book extends PrintEditionItem {
         super(name,releaseDate,pagesCount); 
         this.type = 'book'; 
         this.author = author;
-        this.state = 100;
     };
 };
 class NovelBook extends Book {
     constructor(author,name,releaseDate,pagesCount) {
         super(author,name,releaseDate,pagesCount); 
         this.type = 'novel'; 
-        this.state = 100;
     };
 };
 class FantasticBook extends Book {
     constructor(author,name,releaseDate,pagesCount) {
         super(author,name,releaseDate,pagesCount); 
-        this.type = 'fantastic';
-        this.state = 100;         
+        this.type = 'fantastic';     
     };
 };
 class DetectiveBook extends Book {
     constructor(author,name,releaseDate,pagesCount) {
         super(author,name,releaseDate,pagesCount); 
-        this.type = 'detective';     
-        this.state = 100;    
+        this.type = 'detective';      
     };
 };
 class Library {
@@ -74,8 +69,7 @@ class Library {
        if(!result) {
            return null;
        };
-       return result;
-         
+       return result;   
     }; 
     giveBookByName(bookName) {
         let takeBookIndex = this.books.find(item => item.name === bookName);
@@ -96,15 +90,13 @@ class Student {
         this.age = age;  
         this.marks = {}
 };
-    
     addMark(mark, subject) {
-        if(1 > mark > 5) {
+        if(1 > mark && mark > 5) {
             console.log("Ошибка, оценка должна быть числом от 1 до 5")
         } else if(this.marks[subject] === undefined) {
             this.marks[subject] = [mark]
         } else this.marks[subject].push(mark)
     };
-
     getAverageBySubject(subject) {
         if(this.marks[subject] === undefined) {
             console.log("Несуществующий предмет")
