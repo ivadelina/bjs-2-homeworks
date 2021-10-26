@@ -40,13 +40,8 @@ function debounceDecorator2(func,ms) {
   func();
   let timeout;
   let flag = true;
-  wrapper.history = [];
-  wrapper.count = wrapper.history.length
   function wrapper(...args) {
-    if(!args) {
-      wrapper.history.push([])
-    }
-    wrapper.history.push(args)
+    wrapper.count.push(args);
     if (flag) {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
@@ -55,8 +50,8 @@ function debounceDecorator2(func,ms) {
       }, ms);
       flag = true;
     }; 
-    return func.call(this, ...args)
+
   };
-  
-    return wrapper;
+  wrapper.count = [];
+  return wrapper;
 }
