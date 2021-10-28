@@ -91,7 +91,7 @@ class Student {
         this.marks = {}
 };
     addMark(mark, subject) {
-        if(1 > mark && mark > 5) {
+        if(mark < 1 && mark > 5) {
             console.log("Ошибка, оценка должна быть числом от 1 до 5")
         } else if(this.marks[subject] === undefined) {
             this.marks[subject] = [mark]
